@@ -1,0 +1,142 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+<title>Password Generator- Home</title>
+{% endblock %}
+
+{% block scripts %}
+<script>
+        function copyPasswords() {
+          var copied_passwords = document.getElementById("passwords_textarea");
+          copied_passwords.select();
+          document.execCommand("copy");
+        }
+
+</script>
+{% endblock %}
+
+{% block body %}
+<form method="POST">
+    {% csrf_token %}
+    <br/>
+
+    <table align="center">
+        <thead>
+        <th></th>
+        <th></th>
+        </thead>
+        <tr>
+            <td align="left">How many passwords do you want?</td>
+            <td align="left">
+                <select name="no_of_passwords">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="75">75</option>
+                    <option value="100">100</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="left">Select combination of your choice</td>
+            <td align="left">
+                <input type="checkbox" name="checks[]" value="uppercase_letters">Uppercase Letters
+                <input type="checkbox" name="checks[]" value="lowercase_letters">Lowercase Letters
+                <input type="checkbox" name="checks[]" value="digits">Digits
+                <input type="checkbox" name="checks[]" value="special_characters">Special Characters
+            </td>
+        </tr>
+
+
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+
+
+        <tr>
+            <td align="left">Select password length</td>
+            <td align="left">
+                <select name="dropdown_length">
+                    <option value="4">4</option>
+                    <option value="8">8</option>
+                    <option value="12">12</option>
+                    <option value="16">16</option>
+                    <option value="20">20</option>
+                    <option value="24">24</option>
+                    <option value="32">32</option>
+                    <option value="64">64</option>
+                    <option value="128">128</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="left">Or provide length of your choice</td>
+            <td align="left"><input type="text" name="custom_length"></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="left"></td>
+            <td align="left">
+            <textarea id="passwords_textarea" placeholder="You will find password/passwords here!" name="passwords"
+                      rows="12" cols="67">{% for password in passwords %}
+                {{password}}
+                {% endfor%}</textarea>
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+
+
+        <tr>
+            <td align="left">Click here to generate password/passwords</td>
+            <td align="left">
+                <input  type="submit" value="Generate">
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+
+
+        <tr>
+            <td align="left">Click here to copy password/passwords</td>
+            <td align="left"><input type="button" onclick="copyPasswords()" value="Copy"></td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <div align="center">
+        <small>Note- The application uses server interactions. so, please do not use this passwords for long term and
+            sensitive transactions like bank.</small>
+    </div>
+</form>
+{% endblock %}
